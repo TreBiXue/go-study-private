@@ -1,18 +1,22 @@
 package main
 
-import "go-studying/api/routers"
+import (
+	"go-studying/api/router"
+	"go-studying/app"
+)
 
-func InitServer() *Server {
-	engine := NewGinEngine()
-	db := InitSpannerDB()
+func InitServer() *app.Server {
+	engine := app.NewGinEngine()
+	db := app.InitSpannerDB()
 
-	routers.InitAccountRouter(db, engine)
+	router.InitAccountRouter(db, engine)
 
-	server := NewServer(engine)
+	server := app.NewServer(engine)
 	return server
 }
 
 func main() {
 	server := InitServer()
 	server.Start()
+
 }
