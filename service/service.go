@@ -3,8 +3,9 @@ package service
 import (
 	"context"
 	"go-studying/models"
+	"time"
 )
 
 type IAccountService interface {
-	GetByID(c context.Context, id string) (res []models.Account, err error)
+	Login(ctx context.Context, id string, lastAccessed *time.Time) (res []models.Account, err error)
 }

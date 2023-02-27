@@ -2,7 +2,9 @@ package repo
 
 import (
 	"context"
+	"errors"
 	"go-studying/models"
+	"time"
 
 	"cloud.google.com/go/spanner"
 	"google.golang.org/api/iterator"
@@ -44,4 +46,37 @@ func (sp *spannerAccountRepository) GetByID(ctx context.Context, id string) (res
 		account_list = append(account_list, account)
 	}
 	return account_list, nil
+}
+
+func (sp *spannerAccountRepository) UpdateLastAccessedByID(ctx context.Context, id string, lastAccessed *time.Time) error {
+	stmt := spanner.Statement{
+		SQL: `UPDATE Operators
+				SET LastAccessed = @lastAccessed
+				WHERE ID = @id`,
+		Params: map[string]interface{}{
+			"id":           id,
+			"lastAccessed": lastAccessed,
+		},
+	}
+
+	_, err := sp.spanner_client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+		row, err := txn.Update(ctx, stmt)
+
+		if err != nil {
+			return err
+		}
+
+		if row == 0 {
+			err = errors.New("更新失敗！")
+			return err
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

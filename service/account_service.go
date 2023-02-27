@@ -4,6 +4,7 @@ import (
 	"context"
 	"go-studying/models"
 	"go-studying/repo"
+	"time"
 )
 
 type accountService struct {
@@ -14,10 +15,16 @@ func NewAccountService(a repo.IAccountRepo) IAccountService {
 	return &accountService{accountRepo: a}
 }
 
-func (a *accountService) GetByID(c context.Context, id string) (res []models.Account, err error) {
-	res, err = a.accountRepo.GetByID(c, id)
+func (a *accountService) Login(ctx context.Context, id string, lastAccessed *time.Time) (res []models.Account, err error) {
+	res, err = a.accountRepo.GetByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
+
+	err = a.accountRepo.UpdateLastAccessedByID(ctx, id, lastAccessed)
+	if err != nil {
+		return nil, err
+	}
+
 	return
 }

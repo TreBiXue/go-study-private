@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go-studying/service"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,7 +19,8 @@ func NewAccountHandlers(as service.IAccountService) AccountHandler {
 
 func (a *AccountHandler) LoginByID(c *gin.Context) {
 	id := c.Query("id")
-	listAc, err := a.AccountService.GetByID(c, id)
+	lastAccessed := time.Now()
+	listAc, err := a.AccountService.Login(c, id, &lastAccessed)
 	if err != nil {
 		fmt.Printf("error %v", err)
 		return
