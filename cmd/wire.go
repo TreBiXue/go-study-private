@@ -18,9 +18,8 @@ func InitServer() *app.Server {
 		repo.NewSpannerAccountRepository,
 		service.NewAccountService,
 		handler.NewAccountHandlers,
-		router.InitAccountRouter,
+		router.NewRouter,
 		app.NewServer,
-		app.NewGinEngine,
-	)
-	return &app.Server
+		app.NewGinEngine)
+	return &app.Server{}
 }
