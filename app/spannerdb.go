@@ -34,7 +34,7 @@ func init() {
 	// 	fmt.Printf("error %v", err)
 	// }
 	spannerConfig = SpannerDBConfigList{
-		ProjectID:  os.Getenv("SPANNER_INSTANCE_ID"),
+		ProjectID:  os.Getenv("SPANNER_PROJECT_ID"),
 		InstanceID: os.Getenv("SPANNER_INSTANCE_ID"),
 		DBName:     os.Getenv("SPANNER_DATABASE_ID"),
 	}
