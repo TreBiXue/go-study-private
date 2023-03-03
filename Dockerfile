@@ -20,8 +20,8 @@ RUN go build \
   -ldflags "-s -w -extldflags '-static'" \
   -o /bin/app ./cmd/
 
-# RUN strip /bin/app
-# RUN upx -q -9 /bin/app
+RUN strip /bin/app
+RUN upx -q -9 /bin/app
 
 
 FROM gcr.io/distroless/static
