@@ -1,10 +1,11 @@
 package app
 
 import (
-	"cloud.google.com/go/spanner"
 	"context"
 	"fmt"
-	"google.golang.org/api/option"
+	"os"
+
+	"cloud.google.com/go/spanner"
 	"gopkg.in/ini.v1"
 )
 
@@ -29,18 +30,14 @@ func init() {
 	}
 }
 
-//TODO :DEV
-//func init() {
-//	// cfg, err := ini.Load("../asset/config.ini")
-//	// if err != nil {
-//	// 	fmt.Printf("error %v", err)
-//	// }
-//	spannerConfig = SpannerDBConfigList{
-//		ProjectID:  os.Getenv("SPANNER_PROJECT_ID"),
-//		InstanceID: os.Getenv("SPANNER_INSTANCE_ID"),
-//		DBName:     os.Getenv("SPANNER_DATABASE_ID"),
-//	}
-//}
+// TODO :DEV
+func init() {
+	spannerConfig = SpannerDBConfigList{
+		ProjectID:  os.Getenv("SPANNER_PROJECT_ID"),
+		InstanceID: os.Getenv("SPANNER_INSTANCE_ID"),
+		DBName:     os.Getenv("SPANNER_DATABASE_ID"),
+	}
+}
 
 func InitSpannerDB() *spanner.Client {
 	ctx := context.Background()
@@ -48,10 +45,10 @@ func InitSpannerDB() *spanner.Client {
 		spannerConfig.ProjectID, spannerConfig.InstanceID, spannerConfig.DBName)
 	fmt.Println(dbPath)
 	//TODO :DEV
-	// client, err := spanner.NewClient(ctx, dbPath)
+	client, err := spanner.NewClient(ctx, dbPath)
 
 	//LOCAL
-	client, err := spanner.NewClient(ctx, dbPath, option.WithCredentialsFile("../asset/admin_api_serviceaccount.json"))
+	// client, err := spanner.NewClient(ctx, dbPath, option.WithCredentialsFile("../asset/admin_api_serviceaccount.json"))
 	if err != nil {
 		fmt.Printf("error %v", err)
 	}
