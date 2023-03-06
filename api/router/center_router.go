@@ -1,9 +1,8 @@
 package router
 
 import (
-	"go-studying/api/handler"
-
 	"github.com/gin-gonic/gin"
+	"go-studying/api/handler"
 )
 
 // import (
@@ -27,19 +26,19 @@ import (
 
 // }
 
-type Router struct {
-	accountHandler handler.AccountHandler
+type CenterRouter struct {
+	centerHandler handler.CenterHandler
 }
 
-func (r *Router) Login(router *gin.Engine) {
+func (r *CenterRouter) Center(router *gin.Engine) {
 	groupRouter := router.Group("api/v1")
 	{
-		groupRouter.GET("/login", r.accountHandler.LoginByID)
+		groupRouter.GET("/center", r.centerHandler.GetCenterInfo)
 	}
 
 }
 
-func NewRouter(accountHandler handler.AccountHandler) *Router {
-	router := &Router{accountHandler: accountHandler}
+func NewCenterRouter(centerHandler handler.CenterHandler) *CenterRouter {
+	router := &CenterRouter{centerHandler: centerHandler}
 	return router
 }
