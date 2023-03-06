@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"cloud.google.com/go/spanner"
-	"gopkg.in/ini.v1"
 )
 
 type SpannerDBConfigList struct {
@@ -18,17 +17,17 @@ type SpannerDBConfigList struct {
 var spannerConfig SpannerDBConfigList
 
 // LOCAL
-func init() {
-	cfg, err := ini.Load("../asset/config.ini")
-	if err != nil {
-		fmt.Printf("error %v", err)
-	}
-	spannerConfig = SpannerDBConfigList{
-		ProjectID:  cfg.Section("spanner_setting").Key("SPANNER_PROJECT_ID").String(),
-		InstanceID: cfg.Section("spanner_setting").Key("SPANNER_INSTANCE_ID").String(),
-		DBName:     cfg.Section("spanner_setting").Key("SPANNER_DATABASE_ID").String(),
-	}
-}
+// func init() {
+// 	cfg, err := ini.Load("../asset/config.ini")
+// 	if err != nil {
+// 		fmt.Printf("error %v", err)
+// 	}
+// 	spannerConfig = SpannerDBConfigList{
+// 		ProjectID:  cfg.Section("spanner_setting").Key("SPANNER_PROJECT_ID").String(),
+// 		InstanceID: cfg.Section("spanner_setting").Key("SPANNER_INSTANCE_ID").String(),
+// 		DBName:     cfg.Section("spanner_setting").Key("SPANNER_DATABASE_ID").String(),
+// 	}
+// }
 
 // TODO :DEV
 func init() {
