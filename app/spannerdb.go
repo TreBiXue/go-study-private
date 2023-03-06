@@ -16,6 +16,7 @@ type SpannerDBConfigList struct {
 
 var spannerConfig SpannerDBConfigList
 
+// LOCAL
 // func init() {
 // 	cfg, err := ini.Load("../asset/config.ini")
 // 	if err != nil {
@@ -28,11 +29,8 @@ var spannerConfig SpannerDBConfigList
 // 	}
 // }
 
+// TODO :DEV
 func init() {
-	// cfg, err := ini.Load("../asset/config.ini")
-	// if err != nil {
-	// 	fmt.Printf("error %v", err)
-	// }
 	spannerConfig = SpannerDBConfigList{
 		ProjectID:  os.Getenv("SPANNER_PROJECT_ID"),
 		InstanceID: os.Getenv("SPANNER_INSTANCE_ID"),
@@ -45,7 +43,10 @@ func InitSpannerDB() *spanner.Client {
 	dbPath := fmt.Sprintf("projects/%s/instances/%s/databases/%s",
 		spannerConfig.ProjectID, spannerConfig.InstanceID, spannerConfig.DBName)
 	fmt.Println(dbPath)
+	//TODO :DEV
 	client, err := spanner.NewClient(ctx, dbPath)
+
+	//LOCAL
 	// client, err := spanner.NewClient(ctx, dbPath, option.WithCredentialsFile("../asset/admin_api_serviceaccount.json"))
 	if err != nil {
 		fmt.Printf("error %v", err)

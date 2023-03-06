@@ -2,41 +2,39 @@ package router
 
 import (
 	"go-studying/api/handler"
+	"go-studying/repo"
+	"go-studying/service"
 
+	"cloud.google.com/go/spanner"
 	"github.com/gin-gonic/gin"
 )
 
-// import (
-// 	"go-studying/api/handler"
-// 	"go-studying/repo"
-// 	"go-studying/service"
+func InitAccountRouter(db *spanner.Client, router *gin.Engine) {
+	iAccountRepo := repo.NewSpannerAccountRepository(db)
 
-// 	"cloud.google.com/go/spanner"
-// 	"github.com/gin-gonic/gin"
-// )
+	iAccountService := service.NewAccountService(iAccountRepo)
+	accountHandler := handler.NewAccountHandlers(iAccountService)
 
-// func InitAccountRouter(db *spanner.Client, router *gin.Engine) {
-// 	iAccountRepo := repo.NewSpannerAccountRepository(db)
+	groupRouter := router.Group("api/v1")
+	{
+		groupRouter.GET("/login", accountHandler.LoginByID)
+	}
 
-// 	iAccountService := service.NewAccountService(iAccountRepo)
-// 	accountHandler := handler.NewAccountHandlers(iAccountService)
+}
 
+// type Router struct {
+// 	accountHandler handler.AccountHandler
+// }
+
+// func (r *Router) Login(router *gin.Engine) {
 // 	groupRouter := router.Group("api/v1")
-
-// 	groupRouter.GET("/login", accountHandler.LoginByID)
+// 	{
+// 		groupRouter.GET("/login", r.accountHandler.LoginByID)
+// 	}
 
 // }
 
-type Router struct {
-	accountHandler handler.AccountHandler
-}
-
-func (r *Router) Login(router *gin.Engine) {
-	groupRouter := router.Group("api/v1")
-	groupRouter.GET("/login", r.accountHandler.LoginByID)
-}
-
-func NewRouter(accountHandler handler.AccountHandler) *Router {
-	router := &Router{accountHandler: accountHandler}
-	return router
-}
+// func NewRouter(accountHandler handler.AccountHandler) *Router {
+// 	router := &Router{accountHandler: accountHandler}
+// 	return router
+// }
