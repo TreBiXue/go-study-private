@@ -7,8 +7,11 @@
 package main
 
 import (
-	"go-studying/app"
+	"go-studying/api/handler"
 	"go-studying/api/router"
+	"go-studying/app"
+	"go-studying/repo"
+	"go-studying/service"
 )
 
 // Injectors from wire.go:
@@ -16,15 +19,14 @@ import (
 func InitServer() *app.Server {
 	engine := app.NewGinEngine()
 	client := app.InitSpannerDB()
-
-	router.InitAccountRouter(client,engine)
-	router.InitCenterRouter(client,engine)
-
-	// iAccountRepo := repo.NewSpannerAccountRepository(client)
-	// iAccountService := service.NewAccountService(iAccountRepo)
-	// accountHandler := handler.NewAccountHandlers(iAccountService)
-	// routerRouter := router.NewRouter(accountHandler)
-	// server := app.NewServer(engine, routerRouter)
-	server := app.NewServer(engine)
+	iAccountRepo := repo.NewSpannerAccountRepository(client)
+	iAccountService := service.NewAccountService(iAccountRepo)
+	accountHandler := handler.NewAccountHandlers(iAccountService)
+	accountRouter := router.NewAccountRouter(accountHandler)
+	iCenterRepo := repo.NewSpannerCenterRepository(client)
+	iCenterService := service.NewCenterService(iCenterRepo)
+	centerHandler := handler.NewCenterHandlers(iCenterService)
+	centerRouter := router.NewCenterRouter(centerHandler)
+	server := app.NewServer(engine, accountRouter, centerRouter)
 	return server
 }
