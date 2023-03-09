@@ -27,6 +27,10 @@ func InitServer() *app.Server {
 	iCenterService := service.NewCenterService(iCenterRepo)
 	centerHandler := handler.NewCenterHandlers(iCenterService)
 	centerRouter := router.NewCenterRouter(centerHandler)
-	server := app.NewServer(engine, accountRouter, centerRouter)
+	iVenderRepo := repo.NewSpannerVenderRepository(client)
+	iVenderService := service.NewVenderService(iVenderRepo)
+	venderHandler := handler.NewVenderHandlers(iVenderService)
+	venderRouter := router.NewVenderRouter(venderHandler)
+	server := app.NewServer(engine, accountRouter, centerRouter, venderRouter)
 	return server
 }

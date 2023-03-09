@@ -14,3 +14,7 @@ type IAccountRepo interface {
 type ICenterRepo interface {
 	GetByCenterNo(ctx context.Context, centerNo string) (res models.Center, err error)
 }
+
+type IVenderRepo interface {
+	GetByVenderNo(ctx context.Context, venderNo string) (res models.Vender, err error)
+}

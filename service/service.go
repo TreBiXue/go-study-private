@@ -13,3 +13,7 @@ type IAccountService interface {
 type ICenterService interface {
 	GetByCenterNo(ctx context.Context, centerNo string) (res models.Center, err error)
 }
+
+type IVenderService interface {
+	GetByVenderNo(ctx context.Context, venderNo string) (res models.Vender, err error)
+}
