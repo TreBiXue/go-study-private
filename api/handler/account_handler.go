@@ -20,10 +20,11 @@ func NewAccountHandlers(as service.IAccountService) AccountHandler {
 
 func (a *AccountHandler) LoginByID(c *gin.Context) {
 	req := &request.LoginByIdRequest{}
-	if err := c.ShouldBind(&req); err != nil {
-		fmt.Printf("error %v", err)
-		return
-	}
+	req.ID = c.Query("id")
+	// if err := c.ShouldBind(&req); err != nil {
+	// 	fmt.Printf("error %v", err)
+	// 	return
+	// }
 	if err := req.Validate(); err != nil {
 		fmt.Printf("error %v", err)
 		return
