@@ -2,6 +2,8 @@ package repo
 
 import (
 	"context"
+	"go-studying/api/request"
+	"go-studying/api/response"
 	"go-studying/models"
 	"time"
 )
@@ -17,4 +19,13 @@ type ICenterRepo interface {
 
 type IVenderRepo interface {
 	GetByVenderNo(ctx context.Context, venderNo string) (res models.Vender, err error)
+}
+
+type IProductRepo interface {
+	GetByProductCD(ctx context.Context, productCD string) (res models.Product, err error)
+}
+
+type INyukaRepo interface {
+	GetNyukaInfo(ctx context.Context, nyukaInfo *request.NyukaRequest) (res response.NyukaResponse, err error)
+	UpdateNyukaInfo(ctx context.Context, nyukaInfo *request.NyukaRequest) (res response.NyukaResponse, err error)
 }

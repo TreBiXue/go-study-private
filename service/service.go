@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"go-studying/api/request"
+	"go-studying/api/response"
 	"go-studying/models"
 	"time"
 )
@@ -16,4 +18,9 @@ type ICenterService interface {
 
 type IVenderService interface {
 	GetByVenderNo(ctx context.Context, venderNo string) (res models.Vender, err error)
+}
+
+type INyukaService interface {
+	GetNyukaInfo(ctx context.Context, nyukaInfo *request.NyukaRequest) (res response.NyukaResponse, err error)
+	SetNyukaInfo(ctx context.Context, nyukaInfo *request.NyukaRequest) (res response.NyukaResponse, err error)
 }
