@@ -18,19 +18,26 @@ func NewNyukaService(prod repo.IProductRepo, nyuka repo.INyukaRepo) INyukaServic
 
 }
 
-func (ns nyukaService) GetNyukaInfo(ctx context.Context, nyukaInfo *request.NyukaRequest) (res response.NyukaResponse, err error) {
-
-	nyukai, _ := ns.nyukaRepo.GetNyukaInfo(ctx, nyukaInfo)
-
-	productInfo, _ := ns.productRepo.GetByProductCD(ctx, nyukai.ITEMCD)
-
-	res = response.NyukaResponse{ITEMCD: nyukaInfo.ITEMCD,
-		ITEMNM: productInfo.ITEMNM,
-		CENTNO: nyukai.CENTNO,
-	}
+func (ns nyukaService) GetNyukaCount(ctx context.Context, nyukaInput *request.NyukaInputRequest) (res response.NyukaInputResponse, err error) {
+	res, err = ns.nyukaRepo.GetNyukaCount(ctx, nyukaInput)
+	// ORDERNO重複対応
 	return
 }
 
-func (ns nyukaService) SetNyukaInfo(ctx context.Context, nyukaInfo *request.NyukaRequest) (res response.NyukaResponse, err error) {
+func (ns nyukaService) GetNyukaJANInfo(ctx context.Context, nyukaJAN *request.NyukaInputJANRequest) (res response.NyukaInputJANResponse, err error) {
+	res, err = ns.nyukaRepo.GetNyukaJANInfo(ctx, nyukaJAN)
+	// JANによる商品名取得
+	// SIRENOによる仕入れ名取得
 	return
+}
+
+func (ns nyukaService) UpdateNyukaInfo(ctx context.Context, nyukaJANJISU *request.NyukaInputJANNKAJISURequest) (IsSuccess bool, err error) {
+	IsSuccess = false
+	err = ns.nyukaRepo.UpdateNyukaInfo(ctx, nyukaJANJISU)
+	if err != nil {
+		return
+	}
+	IsSuccess = true
+	return
+
 }

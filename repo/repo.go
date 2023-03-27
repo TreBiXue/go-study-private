@@ -26,6 +26,7 @@ type IProductRepo interface {
 }
 
 type INyukaRepo interface {
-	GetNyukaInfo(ctx context.Context, nyukaInfo *request.NyukaRequest) (res response.NyukaResponse, err error)
-	UpdateNyukaInfo(ctx context.Context, nyukaInfo *request.NyukaRequest) (res response.NyukaResponse, err error)
+	GetNyukaCount(ctx context.Context, nyukaInput *request.NyukaInputRequest) (res response.NyukaInputResponse, err error)
+	GetNyukaJANInfo(ctx context.Context, nyukaJAN *request.NyukaInputJANRequest) (res response.NyukaInputJANResponse, err error)
+	UpdateNyukaInfo(ctx context.Context, nyukaJANJISU *request.NyukaInputJANNKAJISURequest) (err error)
 }
