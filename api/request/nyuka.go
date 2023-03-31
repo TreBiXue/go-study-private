@@ -1,5 +1,7 @@
 package request
 
+import "time"
+
 type NyukaInputRequest struct {
 	CENTNO     string `json:"center_no"`
 	NYUKABEGIN string `json:"nyuka_begin"`
@@ -15,5 +17,13 @@ type NyukaInputJANRequest struct {
 
 type NyukaInputJANNKAJISURequest struct {
 	NyukaInputJANRequest
-	NYUKAJISU string `json:"jiseki_su"`
+	NYUKAJISU string    `json:"jiseki_su"`
+	UP_DATE   time.Time `json:"up_date"`
+}
+
+func (r *NyukaInputJANNKAJISURequest) Validate() error {
+	if r.UP_DATE.IsZero() {
+		r.UP_DATE = time.Now()
+	}
+	return nil
 }

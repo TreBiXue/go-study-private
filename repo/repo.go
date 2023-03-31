@@ -3,7 +3,6 @@ package repo
 import (
 	"context"
 	"go-studying/api/request"
-	"go-studying/api/response"
 	"go-studying/models"
 	"time"
 )
@@ -22,11 +21,11 @@ type IVenderRepo interface {
 }
 
 type IProductRepo interface {
-	GetByProductCD(ctx context.Context, productCD string) (res models.Product, err error)
+	GetByProductCD(ctx context.Context, itemCD string) (res models.Product, err error)
 }
 
 type INyukaRepo interface {
-	GetNyukaCount(ctx context.Context, nyukaInput *request.NyukaInputRequest) (res response.NyukaInputResponse, err error)
-	GetNyukaJANInfo(ctx context.Context, nyukaJAN *request.NyukaInputJANRequest) (res response.NyukaInputJANResponse, err error)
+	GetNyukaCount(ctx context.Context, nyukaInput *request.NyukaInputRequest) (res []models.NyukaInfo, err error)
+	GetNyukaJANInfo(ctx context.Context, nyukaJAN *request.NyukaInputJANRequest) (res models.NyukaInfo, err error)
 	UpdateNyukaInfo(ctx context.Context, nyukaJANJISU *request.NyukaInputJANNKAJISURequest) (err error)
 }
