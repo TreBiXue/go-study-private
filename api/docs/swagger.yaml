@@ -1,17 +1,11 @@
-basePath: /
-host: localhost:8080
 info:
   contact: {}
-  description: 仕様書に関する内容説明
-  termsOfService: 仕様書使用する際の注意事項
-  title: APIドキュメントのタイトル
-  version: バージョン(1.0)
 paths:
-  /api/v1/center:
+  /GetCenterInfo/:
     get:
       consumes:
       - application/x-json-stream
-      description: テスト用APIの詳細
+      description: aaaaaa
       parameters:
       - description: 必須ではありません。
         in: query

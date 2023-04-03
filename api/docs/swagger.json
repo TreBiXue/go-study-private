@@ -1,18 +1,12 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "仕様書に関する内容説明",
-        "title": "APIドキュメントのタイトル",
-        "termsOfService": "仕様書使用する際の注意事項",
-        "contact": {},
-        "version": "バージョン(1.0)"
+        "contact": {}
     },
-    "host": "localhost:8080",
-    "basePath": "/",
     "paths": {
-        "/api/v1/center": {
+        "/GetCenterInfo/": {
             "get": {
-                "description": "テスト用APIの詳細",
+                "description": "aaaaaa",
                 "consumes": [
                     "application/x-json-stream"
                 ],
