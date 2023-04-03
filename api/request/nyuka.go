@@ -17,7 +17,7 @@ type NyukaInputJANRequest struct {
 
 type NyukaInputJANNKAJISURequest struct {
 	NyukaInputJANRequest
-	NYUKAJISU string    `json:"jiseki_su"`
+	NYUKAJISU int64     `json:"jiseki_su"`
 	UP_DATE   time.Time `json:"up_date"`
 }
 

@@ -23,21 +23,24 @@ type Server struct {
 	accountRouter *router.AccountRouter
 	centerRouter  *router.CenterRouter
 	venderRouter  *router.VenderRouter
+	nyukaRouter   *router.NyukaRouter
 }
 
 func (s *Server) Start() {
 	s.accountRouter.Login(s.engine)
 	s.centerRouter.Center(s.engine)
 	s.venderRouter.Vender(s.engine)
+	s.nyukaRouter.Nyuka(s.engine)
 	s.engine.Run()
 }
 
 func NewServer(engine *gin.Engine, accountRouter *router.AccountRouter, centerRouter *router.CenterRouter,
-	venderRouter *router.VenderRouter) *Server {
+	venderRouter *router.VenderRouter, nyukaRouter *router.NyukaRouter) *Server {
 	return &Server{
 		engine:        engine,
 		accountRouter: accountRouter,
 		centerRouter:  centerRouter,
 		venderRouter:  venderRouter,
+		nyukaRouter:   nyukaRouter,
 	}
 }

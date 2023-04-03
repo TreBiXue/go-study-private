@@ -12,7 +12,7 @@ type NyukaInputJANResponse struct {
 	ITEMNM    string `json:"product_name"`
 	SIRENO    string `json:"sire_no"`
 	SIRENM    string `json:"sire_name"`
-	ORDERSU   string `json:"order_su"`
-	NYUKAYOSU string `json:"yotei_su"`
-	NYUKAJISU string `json:"jiseki_su"`
+	ORDERSU   int64  `json:"order_su"`
+	NYUKAYOSU int64  `json:"yotei_su"`
+	NYUKAJISU int64  `json:"jiseki_su"`
 }

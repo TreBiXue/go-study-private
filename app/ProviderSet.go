@@ -32,11 +32,22 @@ var VenderProviders = wire.NewSet(
 	router.NewVenderRouter,
 )
 
+// NyukaProviders ベンダー
+var NyukaProviders = wire.NewSet(
+	repo.NewSpannerNyukaRepository,
+	repo.NewSpannerProductRepository,
+	repo.NewSpannerVenderRepository,
+	service.NewNyukaService,
+	handler.NewNyukaHandlers,
+	router.NewNyukaRouter,
+)
+
 var GoStudyProviders = wire.NewSet(
 	InitSpannerDB,
 	AccountProviders,
 	CenterProviders,
 	VenderProviders,
+	NyukaProviders,
 	NewServer,
 	NewGinEngine,
 )
