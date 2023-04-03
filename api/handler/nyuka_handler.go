@@ -68,6 +68,11 @@ func (ch *NyukaHandler) UpdateNyukaInfo(ctx *gin.Context) {
 		return
 	}
 
+	if err := request.Validate(); err != nil {
+		fmt.Printf("error %v", err)
+		return
+	}
+
 	response, err := ch.nyukaService.UpdateNyukaInfo(ctx, &request)
 
 	if err != nil {
