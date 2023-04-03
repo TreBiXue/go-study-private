@@ -13,8 +13,8 @@ type NyukaRouter struct {
 func (vr *NyukaRouter) Nyuka(router *gin.Engine) {
 	groupRouter := router.Group("api/v1")
 	{
-		groupRouter.GET("/nyuka/getcounts", vr.nyukaHandler.GetNyukaCount)
-		groupRouter.GET("/nyuka/getjaninfo", vr.nyukaHandler.GetNyukaJANInfo)
+		groupRouter.POST("/nyuka/getcounts", vr.nyukaHandler.GetNyukaCount)
+		groupRouter.POST("/nyuka/getjaninfo", vr.nyukaHandler.GetNyukaJANInfo)
 		groupRouter.PATCH("/nyuka/update", vr.nyukaHandler.UpdateNyukaInfo)
 	}
 
