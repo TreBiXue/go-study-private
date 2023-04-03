@@ -2,10 +2,11 @@ package handler
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"go-studying/api/request"
 	"go-studying/service"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type NyukaHandler struct {
@@ -22,14 +23,14 @@ func (ch *NyukaHandler) GetNyukaCount(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&request)
 
 	if err != nil {
-		fmt.Printf("error %v", err)
+		fmt.Printf("ShouldBindJSON error %v", err)
 		return
 	}
 
 	response, err := ch.nyukaService.GetNyukaCount(ctx, &request)
 
 	if err != nil {
-		fmt.Printf("error %v", err)
+		fmt.Printf("GetNyukaCount error %v", err)
 		return
 	}
 
