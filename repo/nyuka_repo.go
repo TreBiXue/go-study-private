@@ -1,11 +1,12 @@
 package repo
 
 import (
-	"cloud.google.com/go/spanner"
 	"context"
 	"errors"
 	"go-studying/api/request"
 	"go-studying/models"
+
+	"cloud.google.com/go/spanner"
 	"google.golang.org/api/iterator"
 )
 
@@ -92,7 +93,7 @@ func (sp spannerNyukaRepository) GetNyukaJANInfo(ctx context.Context, nyukaJAN *
 }
 
 func (sp spannerNyukaRepository) UpdateNyukaInfo(ctx context.Context, nyukaJANJISU *request.NyukaInputJANNKAJISURequest) (err error) {
-	upDate := nyukaJANJISU.UP_DATE.Format("20060102")
+	upDate := nyukaJANJISU.UP_DATE.Format("20060102150405")
 	flag := "0"
 
 	stmt := spanner.Statement{

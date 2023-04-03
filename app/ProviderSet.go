@@ -1,11 +1,12 @@
 package app
 
 import (
-	"github.com/google/wire"
 	"go-studying/api/handler"
 	"go-studying/api/router"
 	"go-studying/repo"
 	"go-studying/service"
+
+	"github.com/google/wire"
 )
 
 // AccountProviders ログイン
@@ -36,7 +37,7 @@ var VenderProviders = wire.NewSet(
 var NyukaProviders = wire.NewSet(
 	repo.NewSpannerNyukaRepository,
 	repo.NewSpannerProductRepository,
-	repo.NewSpannerVenderRepository,
+	// repo.NewSpannerVenderRepository,
 	service.NewNyukaService,
 	handler.NewNyukaHandlers,
 	router.NewNyukaRouter,
