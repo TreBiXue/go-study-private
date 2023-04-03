@@ -6,9 +6,9 @@ type NyukaInfo struct {
 	ENO       string `json:"meisai_no"`
 	JAN       string `json:"product_cd"`
 	SIRENO    string `json:"sire_no"`
-	ORDERSU   string `json:"order_su"`
-	NKAYOSU   string `json:"nyuka_yotei"`
-	NKAJISU   string `json:"nyuka_jiseiki"`
+	ORDERSU   int64  `json:"order_su"`
+	NKAYOSU   int64  `json:"nyuka_yotei"`
+	NKAJISU   int64  `json:"nyuka_jiseiki"`
 	NKAYDATE  string `json:"nyuka_date"`
 	NKAUKEFLG string `json:"nyuka_flg"`
 	UP_DATE   string `json:"nyuka_update"`
