@@ -4,6 +4,7 @@ import (
 	"go-studying/api/handler"
 
 	"github.com/gin-gonic/gin"
+	// _ "openapi/docs"
 )
 
 // func InitCenterRouter(db *spanner.Client, router *gin.Engine) {
@@ -27,6 +28,7 @@ func (r *CenterRouter) Center(router *gin.Engine) {
 	groupRouter := router.Group("api/v1")
 	{
 		groupRouter.GET("/center", r.centerHandler.GetCenterInfo)
+		// groupRouter.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	}
 
 }

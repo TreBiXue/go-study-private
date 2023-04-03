@@ -31,6 +31,11 @@ func InitServer() *app.Server {
 	iVenderService := service.NewVenderService(iVenderRepo)
 	venderHandler := handler.NewVenderHandlers(iVenderService)
 	venderRouter := router.NewVenderRouter(venderHandler)
-	server := app.NewServer(engine, accountRouter, centerRouter, venderRouter)
+	iProductRepo := repo.NewSpannerProductRepository(client)
+	iNyukaRepo := repo.NewSpannerNyukaRepository(client)
+	iNyukaService := service.NewNyukaService(iProductRepo, iNyukaRepo, iVenderRepo)
+	nyukaHandler := handler.NewNyukaHandlers(iNyukaService)
+	nyukaRouter := router.NewNyukaRouter(nyukaHandler)
+	server := app.NewServer(engine, accountRouter, centerRouter, venderRouter, nyukaRouter)
 	return server
 }

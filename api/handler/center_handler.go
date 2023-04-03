@@ -2,10 +2,19 @@ package handler
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"go-studying/service"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
+
+// @title APIドキュメントのタイトル
+// @version バージョン(1.0)
+// @description 仕様書に関する内容説明
+// @termsOfService 仕様書使用する際の注意事項
+
+// @host localhost:8080
+// @BasePath /
 
 type CenterHandler struct {
 	centerService service.ICenterService
@@ -28,3 +37,13 @@ func (ch *CenterHandler) GetCenterInfo(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"CenterInfo": res})
 
 }
+
+// // @description テスト用APIの詳細
+// // @version 1.0
+// // @accept application/x-json-stream
+// // @param none query string false "必須ではありません。"
+// // @Success 200 {string} string    "ok"
+// // @router /test/ [get]
+// func test(c *gin.Context) {
+// 	c.JSON(200, "ok")
+// }
