@@ -17,6 +17,13 @@ func NewNyukaHandlers(service service.INyukaService) NyukaHandler {
 	return NyukaHandler{nyukaService: service}
 }
 
+//	@Summary 获取未入荷条数
+//
+// @accept			application/json
+//
+// @Param   input body request.NyukaInputRequest true "test"
+// @Success	200			{object}	response.NyukaInputResponse	"成功"
+// @Router		/api/v1/nyuka/getcounts [post]
 func (ch *NyukaHandler) GetNyukaCount(ctx *gin.Context) {
 
 	request := request.NyukaInputRequest{}

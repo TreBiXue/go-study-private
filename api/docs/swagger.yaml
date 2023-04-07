@@ -1,25 +1,67 @@
-basePath: /
-host: localhost:8080
+definitions:
+  models.Center:
+    properties:
+      center_name:
+        type: string
+      center_no:
+        type: string
+    type: object
+  request.NyukaInputRequest:
+    properties:
+      center_no:
+        type: string
+      nyuka_begin:
+        type: string
+      nyuka_end:
+        type: string
+      sire_no:
+        type: string
+    type: object
+  response.NyukaInputResponse:
+    properties:
+      count:
+        type: integer
+      orderNo_List:
+        items:
+          type: string
+        type: array
+    type: object
 info:
   contact: {}
-  description: 仕様書に関する内容説明
-  termsOfService: 仕様書使用する際の注意事項
-  title: APIドキュメントのタイトル
-  version: バージョン(1.0)
 paths:
   /api/v1/center:
     get:
       consumes:
-      - application/x-json-stream
-      description: テスト用APIの詳細
+      - application/json
+      description: Get center details by ID
       parameters:
-      - description: 必須ではありません。
+      - description: center_no
         in: query
-        name: none
+        name: center_no
+        required: true
         type: string
+      produces:
+      - application/json
       responses:
         "200":
-          description: ok
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/models.Center'
+  /api/v1/nyuka/getcounts:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: test
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/request.NyukaInputRequest'
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/response.NyukaInputResponse'
+      summary: 获取未入荷条数
 swagger: "2.0"
