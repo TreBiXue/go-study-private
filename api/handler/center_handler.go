@@ -15,12 +15,17 @@ func NewCenterHandlers(cs service.ICenterService) CenterHandler {
 	return CenterHandler{centerService: cs}
 }
 
-// @description aaaaaa
-// @version 1.0
-// @accept application/x-json-stream
-// @param none query string false "必須ではありません。"
-// @Success 200 {string} string    "ok"
-// @router /GetCenterInfo/ [get]
+/*
+GetCenterInfo @Summary Get user by ID
+@Description Get user details by ID
+@Tags users
+@ID getUserById
+@Accept json
+@Produce json
+@Param	center_no	query	string	false	"必須ではありません。"
+@Success 200 {object} User
+@Router /api/v1/center [get]
+*/
 func (ch *CenterHandler) GetCenterInfo(ctx *gin.Context) {
 	centerNo := ctx.Query("center_no")
 

@@ -1,15 +1,11 @@
 package main
 
-// func InitServer() *app.Server {
-// 	engine := app.NewGinEngine()
-// 	db := app.InitSpannerDB()
+//	@title			Trial EC入荷 API
+//	@version		1.0
+//	@description	This is 「Trial EC入荷 API」 server.
 
-// 	router.InitAccountRouter(db, engine)
-
-// 	server := app.NewServer(engine)
-// 	return server
-// }
-
+//	@license.name	Apache 2.0
+//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
 func main() {
 	server := InitServer()
 	server.Start()
