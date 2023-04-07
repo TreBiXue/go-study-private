@@ -16,6 +16,12 @@ func NewVenderHandlers(vs service.IVenderService) VenderHandler {
 	return VenderHandler{venderService: vs}
 }
 
+// @Description Get vender details by ID
+// @Accept json
+// @Produce json
+// @Param	vender_no	query	string	true	"vender_no"
+// @Success 200 {object} models.Vender
+// @Router /api/v1/Vender [get]
 func (vh *VenderHandler) GetVenderInfo(ctx *gin.Context) {
 	venderNo := ctx.Query("vender_no")
 

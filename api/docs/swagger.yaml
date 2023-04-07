@@ -6,6 +6,13 @@ definitions:
       center_no:
         type: string
     type: object
+  models.Vender:
+    properties:
+      sire_name:
+        type: string
+      sire_no:
+        type: string
+    type: object
   request.NyukaInputRequest:
     properties:
       center_no:
@@ -29,6 +36,24 @@ definitions:
 info:
   contact: {}
 paths:
+  /api/v1/Vender:
+    get:
+      consumes:
+      - application/json
+      description: Get vender details by ID
+      parameters:
+      - description: vender_no
+        in: query
+        name: vender_no
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Vender'
   /api/v1/center:
     get:
       consumes:
