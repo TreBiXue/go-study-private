@@ -36,24 +36,6 @@ definitions:
 info:
   contact: {}
 paths:
-  /api/v1/Vender:
-    get:
-      consumes:
-      - application/json
-      description: Get vender details by ID
-      parameters:
-      - description: vender_no
-        in: query
-        name: vender_no
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Vender'
   /api/v1/center:
     get:
       consumes:
@@ -89,4 +71,22 @@ paths:
           schema:
             $ref: '#/definitions/response.NyukaInputResponse'
       summary: 获取未入荷条数
+  /api/v1/vender:
+    get:
+      consumes:
+      - application/json
+      description: Get vender details by ID
+      parameters:
+      - description: vender_no
+        in: query
+        name: vender_no
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Vender'
 swagger: "2.0"

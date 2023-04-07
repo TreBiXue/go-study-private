@@ -16,34 +16,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/Vender": {
-            "get": {
-                "description": "Get vender details by ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "vender_no",
-                        "name": "vender_no",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Vender"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/center": {
             "get": {
                 "description": "Get center details by ID",
@@ -94,6 +66,34 @@ const docTemplate = `{
                         "description": "成功",
                         "schema": {
                             "$ref": "#/definitions/response.NyukaInputResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/vender": {
+            "get": {
+                "description": "Get vender details by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "vender_no",
+                        "name": "vender_no",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Vender"
                         }
                     }
                 }

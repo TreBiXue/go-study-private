@@ -21,7 +21,7 @@ func NewVenderHandlers(vs service.IVenderService) VenderHandler {
 // @Produce json
 // @Param	vender_no	query	string	true	"vender_no"
 // @Success 200 {object} models.Vender
-// @Router /api/v1/Vender [get]
+// @Router /api/v1/vender [get]
 func (vh *VenderHandler) GetVenderInfo(ctx *gin.Context) {
 	venderNo := ctx.Query("vender_no")
 
