@@ -1,10 +1,11 @@
 package app
 
 import (
+	_ "go-studying/api/docs"
+	"go-studying/api/router"
+
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"go-studying/api/router"
-	_ "go-studying/docs"
 
 	"github.com/gin-gonic/gin"
 )

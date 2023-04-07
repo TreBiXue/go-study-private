@@ -21,12 +21,9 @@ func NewNyukaHandlers(service service.INyukaService) NyukaHandler {
 //
 // @accept			application/json
 //
-//	@Param		center_no	body		string	true	"センター番号"   default("0093")
-//	@Param		nyuka_begin	body		string	true	"Start時間"     default(20220101)
-//	@Param		nyuka_end	body		string	true	"End時間"       default(20240101)
-//	@Param		sire_no		body		string	true	"ベンダー番号"    default(092628664)
-//	@Success	200			{object}	response.NyukaInputResponse	"成功"
-//	@Router		/api/v1/nyuka/getcounts [post]
+// @Param   input body request.NyukaInputRequest true "test"
+// @Success	200			{object}	response.NyukaInputResponse	"成功"
+// @Router		/api/v1/nyuka/getcounts [post]
 func (ch *NyukaHandler) GetNyukaCount(ctx *gin.Context) {
 
 	request := request.NyukaInputRequest{}
