@@ -26,7 +26,6 @@ func (ch *CenterHandler) GetCenterInfo(ctx *gin.Context) {
 	centerNo := ctx.Query("center_no")
 
 	res, err := ch.centerService.GetByCenterNo(ctx, centerNo)
-	// _, err := ch.centerService.GetByCenterNo(ctx, centerNo)
 
 	if err != nil {
 		fmt.Printf("error %v", err)
@@ -34,6 +33,4 @@ func (ch *CenterHandler) GetCenterInfo(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"CenterInfo": res})
-	// ctx.JSON(200, "ok")
-
 }

@@ -1,4 +1,17 @@
 definitions:
+  models.Account:
+    properties:
+      employee_code:
+        type: string
+      employee_name:
+        type: string
+      id:
+        type: string
+      last_accessed:
+        type: string
+      token:
+        type: string
+    type: object
   models.Center:
     properties:
       center_name:
@@ -13,6 +26,28 @@ definitions:
       sire_no:
         type: string
     type: object
+  request.NyukaInputJANNKAJISURequest:
+    properties:
+      center_no:
+        type: string
+      jiseki_su:
+        type: integer
+      order_no:
+        type: string
+      product_cd:
+        type: string
+      up_date:
+        type: string
+    type: object
+  request.NyukaInputJANRequest:
+    properties:
+      center_no:
+        type: string
+      order_no:
+        type: string
+      product_cd:
+        type: string
+    type: object
   request.NyukaInputRequest:
     properties:
       center_no:
@@ -23,6 +58,27 @@ definitions:
         type: string
       sire_no:
         type: string
+    type: object
+  response.NyukaInputJANResponse:
+    properties:
+      eda_no:
+        type: string
+      jiseki_su:
+        type: integer
+      order_no:
+        type: string
+      order_su:
+        type: integer
+      product_cd:
+        type: string
+      product_name:
+        type: string
+      sire_name:
+        type: string
+      sire_no:
+        type: string
+      yotei_su:
+        type: integer
     type: object
   response.NyukaInputResponse:
     properties:
@@ -54,6 +110,26 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Center'
+  /api/v1/login:
+    get:
+      consumes:
+      - application/json
+      description: Get account details by ID
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Account'
+            type: array
   /api/v1/nyuka/getcounts:
     post:
       consumes:
@@ -71,6 +147,40 @@ paths:
           schema:
             $ref: '#/definitions/response.NyukaInputResponse'
       summary: 获取未入荷条数
+  /api/v1/nyuka/getjaninfo:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: jan info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/request.NyukaInputJANRequest'
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/response.NyukaInputJANResponse'
+      summary: JANによって検品情報取得
+  /api/v1/nyuka/update:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: jisekisu　input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/request.NyukaInputJANNKAJISURequest'
+      responses:
+        "200":
+          description: 成功
+          schema:
+            type: boolean
+      summary: 入荷数を更新する
   /api/v1/vender:
     get:
       consumes:

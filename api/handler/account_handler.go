@@ -18,20 +18,21 @@ func NewAccountHandlers(as service.IAccountService) AccountHandler {
 	return AccountHandler{AccountService: as}
 }
 
+// @Description Get account details by ID
+// @Accept json
+// @Produce json
+// @Param	id	query	string	true	"id"
+// @Success 200 {object} []models.Account
+// @Router /api/v1/login [get]
 func (a *AccountHandler) LoginByID(c *gin.Context) {
 	req := &request.LoginByIdRequest{}
 	req.ID = c.Query("id")
-	// if err := c.ShouldBind(&req); err != nil {
-	// 	fmt.Printf("error %v", err)
-	// 	return
-	// }
+
 	if err := req.Validate(); err != nil {
 		fmt.Printf("error %v", err)
 		return
 	}
 
-	// id := c.Query("id")
-	// lastAccessed := time.Now()
 	listAc, err := a.AccountService.Login(c, req.ID, &req.AccessTime)
 	if err != nil {
 		fmt.Printf("error %v", err)
