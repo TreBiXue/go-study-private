@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"fmt"
+	"go-studying/api/request"
 	"go-studying/service"
 	"net/http"
 
@@ -25,10 +25,15 @@ func NewCenterHandlers(cs service.ICenterService) CenterHandler {
 func (ch *CenterHandler) GetCenterInfo(ctx *gin.Context) {
 	centerNo := ctx.Query("center_no")
 
+	if centerNo == "" {
+		_ = ctx.Error(request.ErrorBadRequest)
+		return
+	}
+
 	res, err := ch.centerService.GetByCenterNo(ctx, centerNo)
 
 	if err != nil {
-		fmt.Printf("error %v", err)
+		_ = ctx.Error(err)
 		return
 	}
 

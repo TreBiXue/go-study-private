@@ -3,6 +3,7 @@ package repo
 import (
 	"context"
 	"go-studying/models"
+	"google.golang.org/api/iterator"
 
 	"cloud.google.com/go/spanner"
 )
@@ -27,15 +28,20 @@ func (sp *spannerVenderRepository) GetByVenderNo(ctx context.Context, venderNo s
 
 	row, err := iter.Next()
 
-	if err != nil {
-		return models.Vender{}, err
+	if err == iterator.Done {
+		err = ErrorNotFound
+		return
+	} else if err != nil {
+		// todo：具体原因log记录
+		err = ErrorInternal
+		return
 	}
-
 	res = models.Vender{}
 	row.ToStruct(&res)
 
 	if err != nil {
-		return models.Vender{}, err
+		// todo：具体原因log记录
+		err = ErrorInternal
 	}
 
 	return

@@ -1,7 +1,12 @@
 package app
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"go-studying/middleware/errorhandler"
+)
 
 func NewGinEngine() *gin.Engine {
-	return gin.Default()
+	r := gin.Default()
+	r.Use(errorhandler.ErrorHandler())
+	return r
 }

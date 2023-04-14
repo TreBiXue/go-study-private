@@ -3,10 +3,10 @@ package request
 import "time"
 
 type NyukaInputRequest struct {
-	CENTNO     string `json:"center_no"`
-	NYUKABEGIN string `json:"nyuka_begin"`
-	NYUKAEND   string `json:"nyuka_end"`
-	SIRENO     string `json:"sire_no"`
+	CENTNO     string `json:"center_no" example:"0093"`
+	NYUKABEGIN string `json:"nyuka_begin" example:"20220101"`
+	NYUKAEND   string `json:"nyuka_end" example:"20240101"`
+	SIRENO     string `json:"sire_no" example:"4466"`
 }
 
 type NyukaInputJANRequest struct {
