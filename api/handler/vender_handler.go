@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"fmt"
+	"go-studying/api/request"
 	"go-studying/service"
 	"net/http"
 
@@ -25,13 +25,17 @@ func NewVenderHandlers(vs service.IVenderService) VenderHandler {
 func (vh *VenderHandler) GetVenderInfo(ctx *gin.Context) {
 	venderNo := ctx.Query("vender_no")
 
+	if venderNo == "" {
+		_ = ctx.Error(request.ErrorBadRequest)
+		return
+	}
+
 	res, err := vh.venderService.GetByVenderNo(ctx, venderNo)
 
 	if err != nil {
-		fmt.Printf("error %v", err)
+		_ = ctx.Error(err)
 		return
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"venderInfo": res})
-
 }

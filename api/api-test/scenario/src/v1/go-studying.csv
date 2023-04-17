@@ -1,0 +1,4 @@
+vender_no,code,vender_response
+"4466",200,"{""venderInfo"":{""sire_no"":""4466"",""sire_name"":""加藤産業""}}"
+"9999",404,"{""code"":""not_found"",""msg"":""data not found""}"
+null,400,"{""code"":""bad_params"",""msg"":""bad request""}"

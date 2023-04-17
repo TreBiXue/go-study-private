@@ -4,10 +4,10 @@ import (
 	"context"
 	"errors"
 	"go-studying/models"
+	"google.golang.org/api/iterator"
 	"time"
 
 	"cloud.google.com/go/spanner"
-	"google.golang.org/api/iterator"
 )
 
 type spannerAccountRepository struct {
@@ -18,7 +18,7 @@ func NewSpannerAccountRepository(spanner *spanner.Client) IAccountRepo {
 	return &spannerAccountRepository{spanner}
 }
 
-func (sp *spannerAccountRepository) GetByID(ctx context.Context, id string) (res []models.Account, err error) {
+func (sp *spannerAccountRepository) GetByID(ctx context.Context, id string) (res models.Account, err error) {
 	sql := `select ID,EmployeeCode,Token,EmployeeName,LastAccessed from Operators where id = @id`
 	params := map[string]interface{}{"id": id}
 
@@ -27,25 +27,25 @@ func (sp *spannerAccountRepository) GetByID(ctx context.Context, id string) (res
 		Params: params,
 	})
 	defer iter.Stop()
+	row, err := iter.Next()
 
-	account_list := []models.Account{}
-
-	for {
-		row, err := iter.Next()
-		if err == iterator.Done {
-			break
-		}
-		if err != nil {
-			return nil, err
-		}
-
-		var account models.Account
-		if err := row.ToStruct(&account); err != nil {
-			return nil, err
-		}
-		account_list = append(account_list, account)
+	if err == iterator.Done {
+		err = ErrorNotFound
+		return
+	} else if err != nil {
+		// todo：具体原因log记录
+		err = ErrorInternal
+		return
 	}
-	return account_list, nil
+
+	res = models.Account{}
+	row.ToStruct(&res)
+	if err != nil {
+		// todo：具体原因log记录
+		err = ErrorInternal
+	}
+
+	return
 }
 
 func (sp *spannerAccountRepository) UpdateLastAccessedByID(ctx context.Context, id string, lastAccessed *time.Time) error {
