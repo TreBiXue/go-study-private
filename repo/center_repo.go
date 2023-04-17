@@ -4,6 +4,7 @@ import (
 	"cloud.google.com/go/spanner"
 	"context"
 	"go-studying/models"
+	"google.golang.org/api/iterator"
 )
 
 type spannerCenterRepository struct {
@@ -26,15 +27,20 @@ func (sp spannerCenterRepository) GetByCenterNo(ctx context.Context, centerNo st
 
 	row, err := iter.Next()
 
-	if err != nil {
-		return models.Center{}, err
+	if err == iterator.Done {
+		err = ErrorNotFound
+		return
+	} else if err != nil {
+		// todo：具体原因log记录
+		err = ErrorInternal
+		return
 	}
 
 	res = models.Center{}
 	row.ToStruct(&res)
-
 	if err != nil {
-		return models.Center{}, err
+		// todo：具体原因log记录
+		err = ErrorInternal
 	}
 
 	return

@@ -2,13 +2,19 @@ package repo
 
 import (
 	"context"
+	"errors"
 	"go-studying/api/request"
 	"go-studying/models"
 	"time"
 )
 
+var (
+	ErrorNotFound = errors.New("data not found")
+	ErrorInternal = errors.New("internal error")
+)
+
 type IAccountRepo interface {
-	GetByID(ctx context.Context, id string) (res []models.Account, err error)
+	GetByID(ctx context.Context, id string) (res models.Account, err error)
 	UpdateLastAccessedByID(ctx context.Context, id string, lastAccessed *time.Time) error
 }
 

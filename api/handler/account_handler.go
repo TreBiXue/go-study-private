@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"go-studying/api/request"
 	"go-studying/api/response"
 	"go-studying/service"
@@ -18,29 +17,29 @@ func NewAccountHandlers(as service.IAccountService) AccountHandler {
 	return AccountHandler{AccountService: as}
 }
 
-// @Description Get account details by ID
+// @Description ユーザー登録
 // @Accept json
 // @Produce json
 // @Param	id	query	string	true	"id"
 // @Success 200 {object} []models.Account
 // @Router /api/v1/login [get]
-func (a *AccountHandler) LoginByID(c *gin.Context) {
+func (a *AccountHandler) LoginByID(ctx *gin.Context) {
 	req := &request.LoginByIdRequest{}
-	req.ID = c.Query("id")
+	req.ID = ctx.Query("id")
 
-	if err := req.Validate(); err != nil {
-		fmt.Printf("error %v", err)
+	if req.ID == "" {
+		_ = ctx.Error(request.ErrorBadRequest)
 		return
 	}
 
-	listAc, err := a.AccountService.Login(c, req.ID, &req.AccessTime)
+	res, err := a.AccountService.Login(ctx, req.ID, &req.AccessTime)
 	if err != nil {
-		fmt.Printf("error %v", err)
+		_ = ctx.Error(err)
 		return
 	}
 	resp := &response.LoginByIDResponse{
-		EmployeeCode: listAc[0].EmployeeCode,
-		EmployeeName: listAc[0].EmployeeName,
+		EmployeeCode: res.EmployeeCode,
+		EmployeeName: res.EmployeeName,
 	}
-	c.JSON(http.StatusOK, gin.H{"Accounts": resp})
+	ctx.JSON(http.StatusOK, gin.H{"Accounts": resp})
 }
