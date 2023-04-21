@@ -4,6 +4,8 @@ import (
 	"crypto/ecdsa"
 	"crypto/elliptic"
 	"crypto/rand"
+	"errors"
+	"fmt"
 	"time"
 
 	"github.com/gbrlsnchs/jwt/v3"
@@ -34,7 +36,7 @@ func Sign(id string, username string) (string, error) {
 			Subject:        "login",
 			Audience:       jwt.Audience{},
 			ExpirationTime: jwt.NumericDate(now.Add(7 * 24 * time.Hour)),
-			NotBefore:      jwt.NumericDate(now.Add(30 * time.Minute)),
+			NotBefore:      jwt.NumericDate(now.Add(1 * time.Minute)),
 			IssuedAt:       jwt.NumericDate(now),
 			JWTID:          uuid.NewV4().String(),
 		},
@@ -49,5 +51,15 @@ func Sign(id string, username string) (string, error) {
 func Verify(token []byte) (*LoginToken, error) {
 	pl := &LoginToken{}
 	_, err := jwt.Verify(token, hs, pl)
-	return pl, err
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Print(pl)
+
+	if !pl.NotBefore.Time.Before(time.Now()) {
+		return nil, errors.New("token not yet valid")
+	}
+
+	return pl, nil
 }
