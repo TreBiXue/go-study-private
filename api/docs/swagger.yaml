@@ -1,14 +1,8 @@
 definitions:
-  models.Account:
+  handler.LoginResponse:
     properties:
-      employee_code:
-        type: string
-      employee_name:
-        type: string
-      id:
-        type: string
-      last_accessed:
-        type: string
+      account:
+        $ref: '#/definitions/response.LoginByIDResponse'
       token:
         type: string
     type: object
@@ -51,12 +45,23 @@ definitions:
   request.NyukaInputRequest:
     properties:
       center_no:
+        example: "0093"
         type: string
       nyuka_begin:
+        example: "20220101"
         type: string
       nyuka_end:
+        example: "20240101"
         type: string
       sire_no:
+        example: "4466"
+        type: string
+    type: object
+  response.LoginByIDResponse:
+    properties:
+      employee_code:
+        type: string
+      employee_name:
         type: string
     type: object
   response.NyukaInputJANResponse:
@@ -114,7 +119,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Get account details by ID
+      description: ユーザー登録
       parameters:
       - description: id
         in: query
@@ -127,9 +132,7 @@ paths:
         "200":
           description: OK
           schema:
-            items:
-              $ref: '#/definitions/models.Account'
-            type: array
+            $ref: '#/definitions/handler.LoginResponse'
   /api/v1/nyuka/getcounts:
     post:
       consumes:

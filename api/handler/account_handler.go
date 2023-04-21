@@ -14,6 +14,11 @@ type AccountHandler struct {
 	AccountService service.IAccountService
 }
 
+type LoginResponse struct {
+	Account response.LoginByIDResponse
+	Token   string
+}
+
 func NewAccountHandlers(as service.IAccountService) AccountHandler {
 	return AccountHandler{AccountService: as}
 }
@@ -22,7 +27,7 @@ func NewAccountHandlers(as service.IAccountService) AccountHandler {
 // @Accept json
 // @Produce json
 // @Param	id	query	string	true	"id"
-// @Success 200 {object} []models.Account
+// @Success 200 {object} LoginResponse
 // @Router /api/v1/login [get]
 func (a *AccountHandler) LoginByID(ctx *gin.Context) {
 	req := &request.LoginByIdRequest{}
@@ -38,16 +43,18 @@ func (a *AccountHandler) LoginByID(ctx *gin.Context) {
 		_ = ctx.Error(err)
 		return
 	}
-	resp := &response.LoginByIDResponse{
-		EmployeeCode: res.EmployeeCode,
-		EmployeeName: res.EmployeeName,
-	}
+	// resp := &response.LoginByIDResponse{
+	// 	EmployeeCode: res.EmployeeCode,
+	// 	EmployeeName: res.EmployeeName,
+	// }
+
 	t, err := token.Sign(res.EmployeeCode, res.EmployeeName)
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"err": err})
 	}
-
-	ctx.JSON(http.StatusOK, gin.H{"Accounts": resp,
-		"Token": t,
-	})
+	resp := LoginResponse{}
+	resp.Account.EmployeeCode = res.EmployeeCode
+	resp.Account.EmployeeName = res.EmployeeName
+	resp.Token = t
+	ctx.JSON(http.StatusOK, gin.H{"Accounts": resp})
 }

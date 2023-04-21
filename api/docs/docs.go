@@ -46,7 +46,7 @@ const docTemplate = `{
         },
         "/api/v1/login": {
             "get": {
-                "description": "Get account details by ID",
+                "description": "ユーザー登録",
                 "consumes": [
                     "application/json"
                 ],
@@ -66,10 +66,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Account"
-                            }
+                            "$ref": "#/definitions/handler.LoginResponse"
                         }
                     }
                 }
@@ -186,20 +183,11 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "models.Account": {
+        "handler.LoginResponse": {
             "type": "object",
             "properties": {
-                "employee_code": {
-                    "type": "string"
-                },
-                "employee_name": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "last_accessed": {
-                    "type": "string"
+                "account": {
+                    "$ref": "#/definitions/response.LoginByIDResponse"
                 },
                 "token": {
                     "type": "string"
@@ -266,15 +254,30 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "center_no": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "0093"
                 },
                 "nyuka_begin": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "20220101"
                 },
                 "nyuka_end": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "20240101"
                 },
                 "sire_no": {
+                    "type": "string",
+                    "example": "4466"
+                }
+            }
+        },
+        "response.LoginByIDResponse": {
+            "type": "object",
+            "properties": {
+                "employee_code": {
+                    "type": "string"
+                },
+                "employee_name": {
                     "type": "string"
                 }
             }
