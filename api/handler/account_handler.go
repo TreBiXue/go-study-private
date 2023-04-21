@@ -3,6 +3,7 @@ package handler
 import (
 	"go-studying/api/request"
 	"go-studying/api/response"
+	"go-studying/pkg/token"
 	"go-studying/service"
 	"net/http"
 
@@ -41,5 +42,12 @@ func (a *AccountHandler) LoginByID(ctx *gin.Context) {
 		EmployeeCode: res.EmployeeCode,
 		EmployeeName: res.EmployeeName,
 	}
-	ctx.JSON(http.StatusOK, gin.H{"Accounts": resp})
+	t, err := token.Sign(res.EmployeeCode, res.EmployeeName)
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"err": err})
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"Accounts": resp,
+		"Token": t,
+	})
 }

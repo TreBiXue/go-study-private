@@ -4,11 +4,14 @@ go 1.19
 
 require (
 	cloud.google.com/go/spanner v1.44.0
+	github.com/gbrlsnchs/jwt/v3 v3.0.1
 	github.com/gin-gonic/gin v1.8.2
 	github.com/google/wire v0.5.0
+	github.com/satori/go.uuid v1.2.0
 	github.com/swaggo/files v1.0.1
 	github.com/swaggo/gin-swagger v1.5.3
 	github.com/swaggo/swag v1.8.1
+	go.uber.org/zap v1.24.0
 	google.golang.org/api v0.107.0
 	gopkg.in/ini.v1 v1.67.0
 )
@@ -44,6 +47,7 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
+	github.com/magefile/mage v1.9.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
@@ -51,6 +55,8 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.7 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	go.opencensus.io v0.24.0 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
+	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/crypto v0.7.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.4.0 // indirect

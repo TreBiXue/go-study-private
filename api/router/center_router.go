@@ -28,7 +28,6 @@ func (r *CenterRouter) Center(router *gin.Engine) {
 	groupRouter := router.Group("api/v1")
 	{
 		groupRouter.GET("/center", r.centerHandler.GetCenterInfo)
-		// groupRouter.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	}
 
 }

@@ -3,6 +3,8 @@ package router
 import (
 	"go-studying/api/handler"
 
+	"go-studying/middleware"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +15,7 @@ type NyukaRouter struct {
 func (vr *NyukaRouter) Nyuka(router *gin.Engine) {
 	groupRouter := router.Group("api/v1")
 	{
-		groupRouter.POST("/nyuka/getcounts", vr.nyukaHandler.GetNyukaCount)
+		groupRouter.POST("/nyuka/getcounts", vr.nyukaHandler.GetNyukaCount).Use(middleware.AuthJWT())
 		groupRouter.POST("/nyuka/getjaninfo", vr.nyukaHandler.GetNyukaJANInfo)
 		groupRouter.PATCH("/nyuka/update", vr.nyukaHandler.UpdateNyukaInfo)
 	}
