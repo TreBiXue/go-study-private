@@ -2,6 +2,7 @@ package router
 
 import (
 	"go-studying/api/handler"
+	"go-studying/middleware"
 
 	"github.com/gin-gonic/gin"
 	// _ "openapi/docs"
@@ -27,6 +28,7 @@ type CenterRouter struct {
 func (r *CenterRouter) Center(router *gin.Engine) {
 	groupRouter := router.Group("api/v1")
 	{
+		groupRouter.Use(middleware.AuthJWT())
 		groupRouter.GET("/center", r.centerHandler.GetCenterInfo)
 	}
 

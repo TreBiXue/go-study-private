@@ -15,6 +15,7 @@ type NyukaRouter struct {
 func (vr *NyukaRouter) Nyuka(router *gin.Engine) {
 	groupRouter := router.Group("api/v1")
 	{
+		groupRouter.Use(middleware.AuthJWT())
 		groupRouter.POST("/nyuka/getcounts", vr.nyukaHandler.GetNyukaCount).Use(middleware.AuthJWT())
 		groupRouter.POST("/nyuka/getjaninfo", vr.nyukaHandler.GetNyukaJANInfo)
 		groupRouter.PATCH("/nyuka/update", vr.nyukaHandler.UpdateNyukaInfo)
