@@ -13,7 +13,6 @@ require (
 	github.com/swaggo/swag v1.8.1
 	go.uber.org/zap v1.24.0
 	google.golang.org/api v0.107.0
-	gopkg.in/ini.v1 v1.67.0
 )
 
 require (
