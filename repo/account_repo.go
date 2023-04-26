@@ -4,14 +4,15 @@ import (
 	"context"
 	"errors"
 	"go-studying/models"
-	"google.golang.org/api/iterator"
 	"time"
+
+	"google.golang.org/api/iterator"
 
 	"cloud.google.com/go/spanner"
 )
 
 type spannerAccountRepository struct {
-	spanner_client *spanner.Client
+	client *spanner.Client
 }
 
 func NewSpannerAccountRepository(spanner *spanner.Client) IAccountRepo {
@@ -22,7 +23,7 @@ func (sp *spannerAccountRepository) GetByID(ctx context.Context, id string) (res
 	sql := `select ID,EmployeeCode,Token,EmployeeName,LastAccessed from Operators where id = @id`
 	params := map[string]interface{}{"id": id}
 
-	iter := sp.spanner_client.Single().Query(ctx, spanner.Statement{
+	iter := sp.client.Single().Query(ctx, spanner.Statement{
 		SQL:    sql,
 		Params: params,
 	})
@@ -59,7 +60,7 @@ func (sp *spannerAccountRepository) UpdateLastAccessedByID(ctx context.Context, 
 		},
 	}
 
-	_, err := sp.spanner_client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+	_, err := sp.client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
 		row, err := txn.Update(ctx, stmt)
 
 		if err != nil {

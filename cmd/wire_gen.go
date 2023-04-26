@@ -4,7 +4,7 @@
 //go:build !wireinject
 // +build !wireinject
 
-package main
+package cmd
 
 import (
 	"go-studying/api/handler"
@@ -12,6 +12,7 @@ import (
 	"go-studying/app"
 	"go-studying/repo"
 	"go-studying/service"
+	"go-studying/pkg/middleware"
 )
 
 // Injectors from wire.go:
@@ -36,6 +37,10 @@ func InitServer() *app.Server {
 	iNyukaService := service.NewNyukaService(iProductRepo, iNyukaRepo, iVenderRepo)
 	nyukaHandler := handler.NewNyukaHandlers(iNyukaService)
 	nyukaRouter := router.NewNyukaRouter(nyukaHandler)
+
+	iAccessLogRepo := repo.NewSpannerAccesslogRepository(client)
+	engine.Use(middleware.RecordUaAndTime(iAccessLogRepo))
+
 	server := app.NewServer(engine, accountRouter, centerRouter, venderRouter, nyukaRouter)
 	return server
 }

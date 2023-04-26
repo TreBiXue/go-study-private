@@ -2,7 +2,7 @@ package router
 
 import (
 	"go-studying/api/handler"
-	"go-studying/middleware"
+	"go-studying/pkg/middleware"
 
 	"github.com/gin-gonic/gin"
 	// _ "openapi/docs"

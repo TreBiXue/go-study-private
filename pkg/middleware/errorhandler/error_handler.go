@@ -3,10 +3,11 @@ package errorhandler
 import (
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"go-studying/api/request"
 	"go-studying/repo"
 	_ "net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func ErrorHandler() gin.HandlerFunc {

@@ -63,3 +63,13 @@ func Verify(token []byte) (*LoginToken, error) {
 
 	return pl, nil
 }
+
+func Valid(token []byte) error {
+	pl := &LoginToken{}
+	_, err := jwt.Verify(token, hs, pl)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

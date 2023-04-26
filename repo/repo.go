@@ -35,3 +35,7 @@ type INyukaRepo interface {
 	GetNyukaJANInfo(ctx context.Context, nyukaJAN *request.NyukaInputJANRequest) (res models.NyukaInfo, err error)
 	UpdateNyukaInfo(ctx context.Context, nyukaJANJISU *request.NyukaInputJANNKAJISURequest) (err error)
 }
+
+type IAccessLogRepo interface {
+	SaveAccessLog(ctx context.Context, record models.AccessLog) (err error)
+}
